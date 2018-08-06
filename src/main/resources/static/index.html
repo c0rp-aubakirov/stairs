@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+    <!--<script-->
+        <!--src="https://code.jquery.com/jquery-3.3.1.min.js"-->
+        <!--integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="-->
+        <!--crossorigin="anonymous"></script>-->
+    <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+          crossorigin="anonymous">
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+
+</head>
+<body class="container">
+<div class="Absolute-Center is-Responsive">
+    <form id="target" role="search" accept-charset="UTF-8">
+        <div class="form-row  align-items-center">
+            <div class="col col-11 form-group" id="remote">
+                <input type="text" class="form-control"
+                       autocomplete="off" spellcheck="false"
+                       id="search" name="search"
+                       placeholder="1,2,3,4,5,6">
+            </div>
+            <div class="col col-1 form-group text-center">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-search"></i> Calculate
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <div id="answer">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Array</th>
+                <th>Water units</th>
+            </tr>
+            </thead>
+            <tbody id="container">
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+<script language="JavaScript">
+  $(document).ready(function () {
+    $.getScript("/js/stairs.js", function () {
+
+    });
+  })
+</script>
+</body>
+</html>
+

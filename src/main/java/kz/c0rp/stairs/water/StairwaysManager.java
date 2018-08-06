@@ -11,6 +11,17 @@ public class StairwaysManager {
     /**
      *
      * Finds all UShapes by simple strategy in one pass
+     *
+     * Suppose that each stair height is an Y and stair index is X
+     * Then we have a function y = f(x), where all water units
+     * is a part of a function with local minimum inside. It will look like U shape
+     *
+     * Our strategy is to find all U shapes. We find it by detecting where
+     * 1. function starts decreasing - point startDecreasingIdx
+     * 2. then in the local minimum starts increasing - point setStartIncreasingIdx
+     * 3. finally starts decreasing again - point finish IncreasingIdx
+     *
+     *
      * Computational complexity is O(n)
      * Memory complexity is O(n)
      *
