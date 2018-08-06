@@ -8,6 +8,17 @@ import java.util.List;
  */
 public class StairwaysManager {
 
+    /**
+     *
+     * Finds all UShapes by simple strategy in one pass
+     * Computational complexity is O(n)
+     * Memory complexity is O(n)
+     *
+     *
+     *
+     * @param stairs array as an input
+     * @return ArrayList of #UShaped that was found
+     */
     public static List<UShaped> findAllShapesWithWater(
         final List<Integer> stairs) {
 

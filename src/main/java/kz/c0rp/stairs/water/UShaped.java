@@ -6,16 +6,16 @@ import java.util.List;
 /**
  * @author Sanzhar Aubakirov (c0rp.aubakirov@gmail.com)
  *
- * We trying to find all u-shaped figures built by stairs
- * U shape is like a bowl
+ * We are trying to find all u-shaped figures built by stairs
+ * U shape is something like a parabola
  *
  *
  *
  *
- *      this is startDecreasingIdx point
+ *      this is {@link #startDecreasingIdx} point
  *     \/
  *
- *     d       b < this is finishIncreasingIdx point
+ *     d       b < this is {@link #finishIncreasingIdx} point
  *     S       S
  *     S       S
  *     S       S
@@ -24,7 +24,7 @@ import java.util.List;
  *       "sss"
  *
  *         /\
- *          this is startIncreasingIdx point
+ *          this is {@link #startIncreasingIdx} point
  *
  */
 public class UShaped {
