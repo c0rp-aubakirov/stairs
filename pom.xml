@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>kz.c0rp</groupId>
+    <artifactId>stairs.water</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <build>
+        <plugins>
+
+            <!--Extract git information to the final manifest file-->
+            <plugin>
+                <groupId>ru.concerteza.buildnumber</groupId>
+                <artifactId>maven-jgit-buildnumber-plugin</artifactId>
+                <version>1.2.10</version>
+                <executions>
+                    <execution>
+                        <id>git-buildnumber</id>
+                        <goals>
+                            <goal>extract-buildnumber</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.6</version>
+                <!-- specify manifest fields -->
+                <configuration>
+                    <archive>
+                        <!--Extract git information to the final manifest file-->
+                        <manifestEntries>
+                            <Specification-Title>${project.name}</Specification-Title>
+                            <Specification-Version>${project.version}</Specification-Version>
+                            <Implementation-Title>${project.groupId}.${project.artifactId}</Implementation-Title>
+                            <Implementation-Version>${git.revision}</Implementation-Version>
+                            <Git-Branch>${git.branch}</Git-Branch>
+                            <Git-Tag>${git.tag}</Git-Tag>
+                            <BuildNumber>${git.buildnumber}</BuildNumber>
+                            <Build-Jdk>${java.version}</Build-Jdk>
+                            <Built-By>${user.name}</Built-By>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+>
+        </plugins>
+    </build>
+
+</project>
