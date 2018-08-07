@@ -9,6 +9,7 @@ import java.util.List;
 public class StairwaysManager {
 
     /**
+     * This was the first solution
      *
      * Finds all UShapes by simple strategy in one pass
      *
@@ -86,10 +87,98 @@ public class StairwaysManager {
         return shapedList;
     }
 
+
+    public static List<Integer> findAllLocalMaximums(
+        final List<Integer> stairs) {
+
+        final int size = stairs.size();
+
+        int previousIdx = 0;
+
+        int startsDecrease = -1;
+
+        boolean increasing = false;
+        boolean decreasing = false;
+
+        final List<Integer> localMaximumIdx = new ArrayList<>();
+
+        for (int i = 0; i < size; i++) {
+
+            final Integer current = stairs.get(i);
+            final Integer previous = stairs.get(previousIdx);
+
+            if (previous > current) {
+
+                if (nowValuesIncreasingButPreviouslyWasDecreasing(startsDecrease, increasing)) {
+                    localMaximumIdx.add(previousIdx);
+                }
+
+                if (!decreasing) {
+                    startsDecrease = previousIdx;
+                    decreasing = true;
+                    increasing = false;
+                }
+            }
+
+            if (previous < current) {
+                if (!increasing) {
+                    decreasing = false;
+                    increasing = true;
+                }
+            }
+
+            // first stair is local maximum if next is decreasing
+            if (previousIdx == 0 && decreasing) {
+                 localMaximumIdx.add(previousIdx);
+            }
+
+            // last stair is local maximum if was increasing
+            if (i == size - 1 && increasing) {
+                 localMaximumIdx.add(i);
+            }
+
+
+            previousIdx = i;
+        }
+
+        return localMaximumIdx;
+    }
+
     private static boolean nowValuesIncreasingButPreviouslyWasDecreasing(
         final int startsDecrease, final boolean increasing) {
 
         return increasing && startsDecrease != -1;
     }
 
+    /**
+     *
+     * We calculate how much water between two local maximum in two steps
+     * <p>
+     * 1. Calculate square of rectangle = a*b, where
+     * <p>
+     * a = argmin(left_max, right_max) and
+     * b = (how many stairs inside between local maximums) = @subArrayBetweenMaximums.size()-2
+     *
+     * <p>
+     * 2. We substract sum of all stairs between local maximums from square of rectangle
+     *
+     * @param subArrayBetweenMaximums sub array between two local maximums
+     * @return amount of water inside this U shape
+     */
+    public static Integer calculateWaterBetweenLocalMaximum(List<Integer> subArrayBetweenMaximums) {
+
+        final int numberOfStairs = subArrayBetweenMaximums.size();
+        final int firstStair = 0;
+        final int lastStair = subArrayBetweenMaximums.size() - 1;
+        final int numberOfStairsWithoutBounds = numberOfStairs - 2; // 2 bounds, left and right in U
+
+        final int argmin = Math.min(subArrayBetweenMaximums.get(firstStair), subArrayBetweenMaximums.get(lastStair));
+
+        final int sumWithoutBounds = subArrayBetweenMaximums
+            .subList(firstStair + 1, lastStair) // exclude first and last elements (bounds)
+            .stream().mapToInt(value -> value).sum();
+
+        final int water = numberOfStairsWithoutBounds * argmin - sumWithoutBounds;
+        return water;
+    }
 }

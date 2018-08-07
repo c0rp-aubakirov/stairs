@@ -3,6 +3,7 @@ package kz.c0rp.stairs.water;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import static kz.c0rp.stairs.water.StairwaysManager.calculateWaterBetweenLocalMaximum;
 import static org.testng.Assert.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -29,9 +30,17 @@ public class StairwaysManagerTest {
         final List<UShaped> allShapesWithWater = StairwaysManager.findAllShapesWithWater(stairs);
 
         final int sumShapes = allShapesWithWater.stream()
-            .mapToInt(UShaped::calculateAmountOfWaterInside).sum();
+            .mapToInt(v -> calculateWaterBetweenLocalMaximum(v.getStairsInShape()))
+            .sum();
 
         assertEquals(amountOfWater, sumShapes, "Amount of water calculated is not similar");
+    }
+
+    @Test(dataProvider = "Stairs")
+    public void testFindAllLocalMaximums(List<Integer> stairs, int amountOfWater) throws Exception {
+
+        final List<Integer> allLocalMaximums = StairwaysManager.findAllLocalMaximums(stairs);
+
     }
 
 }
