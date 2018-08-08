@@ -14,7 +14,7 @@ $( "#target" ).submit(function( event ) {
     console.log(data);
 
     $.ajax({
-      url:"api/stairsArray/",
+      url:"api/stairsArray/?type="+$("#type").val(),
       type:"POST",
       data:data,
       contentType:"application/json; charset=utf-8",

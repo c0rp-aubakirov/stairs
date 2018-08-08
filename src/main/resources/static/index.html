@@ -3,9 +3,9 @@
 <head>
 
     <!--<script-->
-        <!--src="https://code.jquery.com/jquery-3.3.1.min.js"-->
-        <!--integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="-->
-        <!--crossorigin="anonymous"></script>-->
+    <!--src="https://code.jquery.com/jquery-3.3.1.min.js"-->
+    <!--integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="-->
+    <!--crossorigin="anonymous"></script>-->
     <script
         src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <link rel="stylesheet"
@@ -21,22 +21,29 @@
         integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
         crossorigin="anonymous"></script>
 
+    <link rel="stylesheet" href="/css/stairs.css" type="text/css"/>
 </head>
 <body class="container">
 <div class="Absolute-Center is-Responsive">
     <form id="target" role="search" accept-charset="UTF-8">
-        <div class="form-row  align-items-center">
-            <div class="col col-11 form-group" id="remote">
-                <input type="text" class="form-control"
-                       autocomplete="off" spellcheck="false"
-                       id="search" name="search"
-                       placeholder="1,2,3,4,5,6">
-            </div>
-            <div class="col col-1 form-group text-center">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fa fa-search"></i> Calculate
-                </button>
-            </div>
+        <div class="col col-12 form-group" id="remote">
+            <label for="search" class="control-label">Enter comma-separated array of integers</label>
+            <input type="text" class="form-control"
+                   autocomplete="off" spellcheck="false"
+                   id="search" name="search"
+                   placeholder="1,2,3,4,5,6">
+        </div>
+        <div class="form-group col col-6">
+            <label for="type" class="control-label">Algorithm</label>
+            <select class="form-control" id="type" name="type">
+                <option value="USHAPE" selected="selected">USHAPE</option>
+                <option value="LOCAL_MAXIMUM">LOCAL_MAXIMUM</option>
+            </select>
+        </div>
+        <div class="col col-2 form-group text-center">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-search"></i> Calculate
+            </button>
         </div>
     </form>
 
