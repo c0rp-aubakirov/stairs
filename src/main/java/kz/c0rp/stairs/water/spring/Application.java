@@ -1,4 +1,4 @@
-package kz.c0rp.stairs.water;
+package kz.c0rp.stairs.water.spring;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

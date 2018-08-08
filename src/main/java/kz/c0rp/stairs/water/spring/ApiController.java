@@ -1,9 +1,10 @@
-package kz.c0rp.stairs.water;
+package kz.c0rp.stairs.water.spring;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
-import static kz.c0rp.stairs.water.StairwaysManager.calculateWaterBetweenLocalMaximum;
+import kz.c0rp.stairs.water.utils.StairwaysManager;
+import static kz.c0rp.stairs.water.utils.StairwaysManager.calculateWaterBetweenLocalMaximum;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

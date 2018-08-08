@@ -1,4 +1,4 @@
-package kz.c0rp.stairs.water;
+package kz.c0rp.stairs.water.model;
 
 import java.util.ArrayList;
 import java.util.List;

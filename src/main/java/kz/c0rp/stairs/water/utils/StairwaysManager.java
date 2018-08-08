@@ -1,7 +1,10 @@
-package kz.c0rp.stairs.water;
+package kz.c0rp.stairs.water.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import kz.c0rp.stairs.water.model.UShaped;
 
 /**
  * @author Sanzhar Aubakirov (c0rp.aubakirov@gmail.com)
@@ -87,9 +90,75 @@ public class StairwaysManager {
         return shapedList;
     }
 
-
+    /**
+     * Suppose that each stair height is an Y and stair index is X
+     * Then we have a function y = f(x), where all water units
+     * is a part of a function with local minimum inside.
+     *
+     * Finds all indexes of local maximums in stairs as a function
+     * @param stairs list of stairs
+     * @return indexes of stairs that are local maximum
+     */
     public static List<Integer> findAllLocalMaximums(
         final List<Integer> stairs) {
+
+        if (stairs.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        final List<Integer> localMaximumIdx = extractLocalMaximum(stairs, false);
+
+        final List<Integer> consistsOfLocalMaximums = localMaximumIdx.stream()
+            .map(stairs::get)
+            .collect(Collectors.toList());
+
+        final List<Integer> reduced = reduceLocalMaximums(consistsOfLocalMaximums);
+        if (reduced.isEmpty()) {
+            return localMaximumIdx;
+        } else {
+            return reduced;
+        }
+    }
+
+    /**
+     * Remove local maximums between bigger local maximums
+     * @param localMaximums list of local maximums
+     * @return reduced local maximums or empty list if reduce does not make sense
+     */
+    public static List<Integer> reduceLocalMaximums(
+        final List<Integer> localMaximums) {
+
+        if (localMaximums.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        final List<Integer> localMaximumIdx = extractLocalMaximum(localMaximums, true);
+
+        final List<Integer> consistsOfLocalMaximums = localMaximumIdx.stream()
+            .map(localMaximums::get)
+            .collect(Collectors.toList());
+
+        final List<Integer> reduced = reduceLocalMaximums(consistsOfLocalMaximums);
+        if (reduced.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        return consistsOfLocalMaximums;
+    }
+
+    /**
+     *
+     * Suppose that each stair height is an Y and stair index is X
+     * Then we have a function y = f(x), where all water units
+     * is a part of a function with local minimum inside.
+     *
+     * Extracts indexes of local maximums in stairs as a function
+     * @param stairs list of stairs
+     * @param isReducing
+     * @return indexes of stairs that are local maximum
+     */
+    private static List<Integer> extractLocalMaximum(final List<Integer> stairs,
+                                                     final boolean isReducing) {
 
         final int size = stairs.size();
 
@@ -127,22 +196,26 @@ public class StairwaysManager {
                 }
             }
 
+            if (i != 0 && Objects.equals(previous, current) && isReducing) {
+                localMaximumIdx.add(i);
+            }
+
             // first stair is local maximum if next is decreasing
             if (previousIdx == 0 && decreasing) {
-                 localMaximumIdx.add(previousIdx);
+                localMaximumIdx.add(previousIdx);
             }
 
             // last stair is local maximum if was increasing
             if (i == size - 1 && increasing) {
-                 localMaximumIdx.add(i);
+                localMaximumIdx.add(i);
             }
 
 
             previousIdx = i;
         }
-
         return localMaximumIdx;
     }
+
 
     private static boolean nowValuesIncreasingButPreviouslyWasDecreasing(
         final int startsDecrease, final boolean increasing) {
