@@ -39,8 +39,6 @@ public class StairwaysManager {
 
         int previousIdx = 0;
 
-        int startsDecrease = -1;
-
         boolean increasing = false;
         boolean decreasing = false;
 
@@ -54,7 +52,7 @@ public class StairwaysManager {
 
             if (previous > current) {
 
-                if (nowValuesIncreasingButPreviouslyWasDecreasing(startsDecrease, increasing)) {
+                if (nowValuesIncreasingButPreviouslyWasDecreasing(increasing)) {
                     uShaped.setFinishIncreasingIdx(previousIdx);
                     shapedList.add(uShaped);
                     uShaped = new UShaped();
@@ -62,10 +60,9 @@ public class StairwaysManager {
                 }
 
                 if (!decreasing) {
-                    startsDecrease = previousIdx;
                     decreasing = true;
                     increasing = false;
-                    uShaped.setStartDecreasingIdx(startsDecrease);
+                    uShaped.setStartDecreasingIdx(previousIdx);
                 }
             }
 
@@ -83,7 +80,7 @@ public class StairwaysManager {
         }
 
         // check if last UShape is also with water
-        if (nowValuesIncreasingButPreviouslyWasDecreasing(startsDecrease, increasing)) {
+        if (nowValuesIncreasingButPreviouslyWasDecreasing(increasing)) {
             uShaped.setFinishIncreasingIdx(previousIdx);
             shapedList.add(uShaped);
         }
@@ -157,14 +154,12 @@ public class StairwaysManager {
      * @param isReducing
      * @return indexes of stairs that are local maximum
      */
-    private static List<Integer> extractLocalMaximum(final List<Integer> stairs,
+    public static List<Integer> extractLocalMaximum(final List<Integer> stairs,
                                                      final boolean isReducing) {
 
         final int size = stairs.size();
 
         int previousIdx = 0;
-
-        int startsDecrease = -1;
 
         boolean increasing = false;
         boolean decreasing = false;
@@ -178,12 +173,11 @@ public class StairwaysManager {
 
             if (previous > current) {
 
-                if (nowValuesIncreasingButPreviouslyWasDecreasing(startsDecrease, increasing)) {
+                if (nowValuesIncreasingButPreviouslyWasDecreasing(increasing)) {
                     localMaximumIdx.add(previousIdx);
                 }
 
                 if (!decreasing) {
-                    startsDecrease = previousIdx;
                     decreasing = true;
                     increasing = false;
                 }
@@ -218,9 +212,9 @@ public class StairwaysManager {
 
 
     private static boolean nowValuesIncreasingButPreviouslyWasDecreasing(
-        final int startsDecrease, final boolean increasing) {
+        final boolean increasing) {
 
-        return increasing && startsDecrease != -1;
+        return increasing;
     }
 
     /**
