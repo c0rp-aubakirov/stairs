@@ -21,15 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApiController {
     private static final Logger logger = Logger.getLogger("API");
 
-    @RequestMapping(value = "/stairsArray", method = RequestMethod.POST, produces="application/json", consumes="application/json")
-    public @ResponseBody Integer message(@RequestBody List<Integer> stairs, @RequestParam("type")
+    @ResponseBody
+    @RequestMapping(value = "/stairsArray", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+    public Integer message(@RequestBody List<Integer> stairs, @RequestParam("type")
                                          WaterCalculatorEnum type) {
 
         if (stairs==null || stairs.isEmpty() || stairs.stream().anyMatch(Objects::isNull)) return 0;
-
-        logger.info("RequestBody=" + stairs.toString());
-        logger.info("Algorithm=" + type.toString());
-
 
         final WaterCalculator calculator = WaterCalculatorFactory.buildBy(type);
 
