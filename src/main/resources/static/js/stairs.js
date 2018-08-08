@@ -12,13 +12,12 @@ $("#target").submit(function (event) {
 
   var re = new RegExp("^(\\d,?)*$");
   if (re.test(term)) {
-    var data = JSON.stringify(term.split(',').map(Number));
-    console.log(data);
+    var in_data = JSON.stringify(term.split(',').map(Number));
 
     $.ajax({
       url: "api/stairsArray/?type=" + algo,
       type: "POST",
-      data: data,
+      data: in_data,
       contentType: "application/json; charset=utf-8",
       dataType: "json",
       success: function (data) {
@@ -26,7 +25,7 @@ $("#target").submit(function (event) {
 
 
         var card = String(text)
-          .replace(/\{ARRAY}/g, term)
+          .replace(/\{ARRAY}/g, in_data)
           .replace(/\{ANSWER}/g, data)
           .replace(/\{ALGORITHM}/g, algo);
         $('#container').prepend(card);

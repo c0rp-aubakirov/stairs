@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import kz.c0rp.stairs.water.model.Extremum;
 import kz.c0rp.stairs.water.model.UShaped;
 
 /**
@@ -103,17 +104,21 @@ public class StairwaysManager {
             return new ArrayList<>();
         }
 
-        final List<Integer> localMaximumIdx = extractLocalMaximum(stairs, false);
+        final Extremum extremum = extractLocalMaximum(stairs, false);
 
-        final List<Integer> consistsOfLocalMaximums = localMaximumIdx.stream()
+        final List<Integer> consistsOfLocalMaximums = extremum.getLocalMaximums().stream()
             .map(stairs::get)
             .collect(Collectors.toList());
 
-        final List<Integer> reduced = reduceLocalMaximums(consistsOfLocalMaximums);
-        if (reduced.isEmpty()) {
-            return localMaximumIdx;
+        if (extremum.getHasLocalMinimum()) {
+            final List<Integer> reduced = reduceLocalMaximums(consistsOfLocalMaximums);
+            if(reduced.isEmpty()) return extremum.getLocalMaximums();
+
+            return reduced.stream()
+                .map(extremum.getLocalMaximums()::get)
+                .collect(Collectors.toList());
         } else {
-            return reduced;
+            return extremum.getLocalMaximums();
         }
     }
 
@@ -129,18 +134,22 @@ public class StairwaysManager {
             return new ArrayList<>();
         }
 
-        final List<Integer> localMaximumIdx = extractLocalMaximum(localMaximums, true);
+        final Extremum extremum = extractLocalMaximum(localMaximums, true);
 
-        final List<Integer> consistsOfLocalMaximums = localMaximumIdx.stream()
+        final List<Integer> consistsOfLocalMaximums = extremum.getLocalMaximums().stream()
             .map(localMaximums::get)
             .collect(Collectors.toList());
 
-        final List<Integer> reduced = reduceLocalMaximums(consistsOfLocalMaximums);
-        if (reduced.isEmpty()) {
+        if (extremum.getHasLocalMinimum()) {
+            final List<Integer> reduced = reduceLocalMaximums(consistsOfLocalMaximums);
+            if(reduced.isEmpty()) return extremum.getLocalMaximums();
+
+            return reduced.stream()
+                .map(extremum.getLocalMaximums()::get)
+                .collect(Collectors.toList());
+        } else {
             return new ArrayList<>();
         }
-
-        return consistsOfLocalMaximums;
     }
 
     /**
@@ -154,8 +163,8 @@ public class StairwaysManager {
      * @param isReducing
      * @return indexes of stairs that are local maximum
      */
-    public static List<Integer> extractLocalMaximum(final List<Integer> stairs,
-                                                     final boolean isReducing) {
+    public static Extremum extractLocalMaximum(final List<Integer> stairs,
+                                               final boolean isReducing) {
 
         final int size = stairs.size();
 
@@ -163,6 +172,7 @@ public class StairwaysManager {
 
         boolean increasing = false;
         boolean decreasing = false;
+        boolean hasLocalMinumum = false;
 
         final List<Integer> localMaximumIdx = new ArrayList<>();
 
@@ -173,7 +183,7 @@ public class StairwaysManager {
 
             if (previous > current) {
 
-                if (nowValuesIncreasingButPreviouslyWasDecreasing(increasing)) {
+                if (increasing) {
                     localMaximumIdx.add(previousIdx);
                 }
 
@@ -185,13 +195,16 @@ public class StairwaysManager {
 
             if (previous < current) {
                 if (!increasing) {
+                    if (decreasing) {
+                        hasLocalMinumum = true;
+                    }
                     decreasing = false;
                     increasing = true;
                 }
             }
 
             if (i != 0 && Objects.equals(previous, current) && isReducing) {
-                localMaximumIdx.add(i);
+                localMaximumIdx.add(previousIdx);
             }
 
             // first stair is local maximum if next is decreasing
@@ -207,7 +220,7 @@ public class StairwaysManager {
 
             previousIdx = i;
         }
-        return localMaximumIdx;
+        return new Extremum(localMaximumIdx, hasLocalMinumum);
     }
 
     /**

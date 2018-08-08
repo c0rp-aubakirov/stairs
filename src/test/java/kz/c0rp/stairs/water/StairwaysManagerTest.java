@@ -23,7 +23,7 @@ public class StairwaysManagerTest {
             {Arrays.asList(3,2,4,1,2), 2},
             {Arrays.asList(4,1,1,0,2,3), 8},
             {Arrays.asList(1,2,5,7,1,2,3,12),15},
-//            {Arrays.asList(5,3,1,3,1,4,1,7,4,3,2,1,0,2,5,7), 49}
+//            {Arrays.asList(5,3,1,3,1,4,1,7,4,3,2,1,0,2,5,7), 49} // USHAPE ALGO fails here
         };
 
     }
