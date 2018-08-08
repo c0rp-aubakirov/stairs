@@ -1,4 +1,4 @@
-package kz.c0rp.stairs.water.spring;
+package kz.c0rp.stairs.water;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package kz.c0rp.stairs.water.interceptors;
+package kz.c0rp.stairs.water.interceptor;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.AbstractRequestLoggingFilter;
