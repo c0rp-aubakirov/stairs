@@ -1,6 +1,6 @@
 # use the official centos docker image
-FROM allpay/jdk8
-MAINTAINER Sanzhar Aubakirov, sanzhar.aubakirov@allpay.kz
+FROM openjdk:8u171-jdk
+MAINTAINER Sanzhar Aubakirov, c0rp.aubakirov@gmail.com
 
 ######## JDK
 
