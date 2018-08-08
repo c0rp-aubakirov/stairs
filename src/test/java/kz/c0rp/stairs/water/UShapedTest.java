@@ -1,6 +1,8 @@
 package kz.c0rp.stairs.water;
 
 import java.util.Arrays;
+import kz.c0rp.stairs.water.model.UShaped;
+import static kz.c0rp.stairs.water.utils.StairwaysManager.calculateWaterBetweenLocalMaximum;
 import static org.testng.Assert.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -15,7 +17,7 @@ public class UShapedTest {
     public static Object[][] credentials() {
 
         return new Object[][] {
-            {new UShaped(0, 1,2, Arrays.asList(3,2,4))},
+            {new UShaped(0, 1, 2, Arrays.asList(3, 2, 4))},
             {new UShaped(2, 3,4, Arrays.asList(4,1,2))},
         };
 
@@ -24,7 +26,7 @@ public class UShapedTest {
 
     @Test(dataProvider = "Stairs")
     public void testCalculateAmountOfWaterInside(final UShaped uShaped) throws Exception {
-        assertEquals(new Integer(1), uShaped.calculateAmountOfWaterInside(), "This stairs shapes has exactly one slot for water");
+        assertEquals(new Integer(1), calculateWaterBetweenLocalMaximum(uShaped.getStairsInShape()), "This stairs shapes has exactly one slot for water");
     }
 
 }
