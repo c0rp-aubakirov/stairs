@@ -1,4 +1,4 @@
-#Task status
+# Task status
 keywords: java8, spring, maven, testng, docker, bootstrap
 
 Project started on August 6.
@@ -7,7 +7,7 @@ The task is done, two algorithms implemented. The problem is that one of the alg
 
 I'm still working on solution of drawing Stairs using JS, however the other part of the project is finished. 
 
-#Requirements
+# Requirements
 
 For linux you need
 
@@ -18,13 +18,13 @@ In order to run on Windows you need:
  
 1. JDK1.8 
 
-#Build
+# Build
 
 Enter project root directory and execute build using maven wrapper
 
 `./mvnw clean install`
 
-#Run
+# Run
 
 On Linux:
 
