@@ -39,11 +39,8 @@ public class StairwaysManager {
 
         int previousIdx = 0;
 
-        boolean increasing = false;
-        boolean decreasing = false;
-
         final List<UShaped> shapedList = new ArrayList<>();
-        UShaped uShaped = new UShaped();
+        UShaped uShaped = null;
 
         for (int i = 0; i < stairs.size(); i++) {
 
@@ -52,35 +49,38 @@ public class StairwaysManager {
 
             if (previous > current) {
 
-                if (nowValuesIncreasingButPreviouslyWasDecreasing(increasing)) {
+                if (uShaped != null && uShaped.getStartIncreasingIdx() != null && uShaped.getStartDecreasingIdx() != null) {
                     uShaped.setFinishIncreasingIdx(previousIdx);
                     shapedList.add(uShaped);
-                    uShaped = new UShaped();
-                    uShaped.getStairsInShape().add(previous);
+                    uShaped = null;
                 }
 
-                if (!decreasing) {
-                    decreasing = true;
-                    increasing = false;
+                if (uShaped == null) {
+                    uShaped = new UShaped();
                     uShaped.setStartDecreasingIdx(previousIdx);
+                    uShaped.getStairsInShape().add(previous);
+                    uShaped.getStairsInShape().add(current);
+                } else {
+                    uShaped.getStairsInShape().add(current);
                 }
             }
 
             if (previous < current) {
-                if (!increasing) {
-                    decreasing = false;
-                    increasing = true;
-                    uShaped.setStartIncreasingIdx(previousIdx);
+                if (uShaped != null) {
+                    uShaped.setStartIncreasingIdx(i);
+                    uShaped.getStairsInShape().add(current);
                 }
             }
 
-            uShaped.getStairsInShape().add(current);
+            if (Objects.equals(previous, current) && previousIdx!=i) {
+                uShaped.getStairsInShape().add(current);
+            }
 
             previousIdx = i;
         }
 
         // check if last UShape is also with water
-        if (nowValuesIncreasingButPreviouslyWasDecreasing(increasing)) {
+        if (uShaped != null && uShaped.getStartIncreasingIdx() != null && uShaped.getStartDecreasingIdx() != null) {
             uShaped.setFinishIncreasingIdx(previousIdx);
             shapedList.add(uShaped);
         }

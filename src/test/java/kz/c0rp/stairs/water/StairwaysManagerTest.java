@@ -43,10 +43,7 @@ public class StairwaysManagerTest {
     @Test(dataProvider = "Stairs")
     public void testFindAllLocalMaximums(List<Integer> stairs, int amountOfWater) throws Exception {
 
-        final List<Integer> allLocalMaximumIdx = findAllLocalMaximums(stairs)
-            .stream().sorted().collect(Collectors.toList());
-
-        int water = calculateWaterByLocalMaximum(allLocalMaximumIdx);
+        int water = calculateWaterByLocalMaximum(stairs);
 
         assertEquals(water, amountOfWater, "Amount of water calculated is not similar");
     }
