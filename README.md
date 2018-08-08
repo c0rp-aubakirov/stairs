@@ -1,16 +1,18 @@
 #Task status
+keywords: java8, spring, maven, testng, docker, bootstrap
 
-I promised to send solution of the problem not later than August 8. That is why I'm sending what I have right now.
+Project started on August 6.
 
-The task is done, two algorithms implemented. The problem is that both algorithm do wrong calculations is some cases :-).
+I promised to send solution of the problem not later than August 8 that is why I'm sending what I have right now.
 
-I'm still working on solution of this problem, the other part of the project is finished. 
+The task is done, two algorithms implemented. The problem is that both algorithm do wrong calculations in some cases :-).
+
+I'm still working on solution of this problem, however the other part of the project is finished. 
 
 Why I'm sending project, with partially working solution?
 1. Because I'm promised to send it not later than August 8
 2. Because I understand that this is technical interview, and algorithm is not as important as other part of the project
-
-keywords: java8, spring, maven, testng, docker, bootstrap
+3. Because there is always tradeoff between business and coding
 
 #Requirements
 
