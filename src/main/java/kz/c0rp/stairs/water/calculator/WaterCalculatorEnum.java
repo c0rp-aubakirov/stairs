@@ -5,5 +5,5 @@ package kz.c0rp.stairs.water.calculator;
  */
 public enum  WaterCalculatorEnum {
 
-    USHAPE, LOCAL_MAXIMUM
+    USHAPE, LOCAL_MAXIMUM, GEEKS
 }

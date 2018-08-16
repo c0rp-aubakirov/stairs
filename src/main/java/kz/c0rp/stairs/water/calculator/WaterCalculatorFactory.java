@@ -12,6 +12,8 @@ public class WaterCalculatorFactory {
                 return new UShapeWaterCalc();
             case LOCAL_MAXIMUM:
                 return new LocalMaximumWaterCalc();
+            case GEEKS:
+                return new GeeksForGeeks();
             default:
                 throw new IllegalStateException("Please create implementation for all new ENUMS");
         }
